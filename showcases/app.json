@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "showcases",
+    "slug": "showcases",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "ly.img.editor.reactnative.showcases",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera for demonstration purposes.",
+        "NSMicrophoneUsageDescription": "This app uses the camera for demonstration purposes."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "ly.img.editor.reactnative.showcases"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 24
+          },
+          "ios": {
+            "deploymentTarget": "16.0",
+            "useFrameworks": "dynamic"
+          }
+        }
+      ]
+    ],
+    "newArchEnabled": true
+  }
+}

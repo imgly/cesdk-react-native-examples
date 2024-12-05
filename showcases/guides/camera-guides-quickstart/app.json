@@ -1,0 +1,35 @@
+{
+  "expo": {
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            // highlight-maven
+            "extraMavenRepos": ["https://artifactory.img.ly/artifactory/maven"],
+            // highlight-maven
+            // highlight-minsdk
+            "minSdkVersion": 24,
+            // highlight-minsdk
+            // highlight-kotlin
+            "kotlinVersion": "1.9.10"
+            // highlight-kotlin
+          },
+          "ios": {
+            "deploymentTarget": "16.0"
+          }
+        }
+      ]
+    ],
+    "ios": {
+      "infoPlist": {
+        // highlight-camera
+        "NSCameraUsageDescription": "This app uses the camera for demonstration purposes.",
+        // highlight-camera
+        // highlight-mic
+        "NSMicrophoneUsageDescription": "This app uses the camera for demonstration purposes."
+        // highlight-mic
+      }
+    }
+  }
+}
