@@ -1,6 +1,6 @@
 ![Hero image showing the configuration abilities of IMGLYEngine](https://img.ly/static/cesdk_release_header_react_native.png)
 
-# IMGLY Creative Editor & Camera - React Native Examples
+# React Native Examples for IMG.LY Creative Editor SDK
 
 This repository contains the React Native examples for the IMG.LY mobile editor and camera solutions.
 The underlying `Engine` enables you to build any design editing UI, automation and creative workflow for iOS and Android.
