@@ -39,3 +39,11 @@ yarn-error.*
 .idea/*
 !.idea/codeStyles
 !.idea/copyright
+
+# Detox
+snapshots/*/diff/*
+snapshots/*/new/*
+snapshots/*/old/*
+snapshots/*/debug/*
+output/*
+artifacts/*
