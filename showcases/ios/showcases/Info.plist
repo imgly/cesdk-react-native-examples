@@ -27,7 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>ly.img.editor.reactnative.showcases</string>
+          <string>ly.img.editor.react-native.showcases</string>
         </array>
       </dict>
     </array>

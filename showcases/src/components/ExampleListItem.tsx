@@ -13,6 +13,7 @@ export const ExampleListItem = ({
       onPress={onPress}
       underlayColor={'#bababa'}
       style={styles.item}
+      testID={example.title}
     >
       <View>
         <Text style={styles.title}>{example.title}</Text>

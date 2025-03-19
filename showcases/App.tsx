@@ -1,4 +1,5 @@
-import { SectionList, StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ExampleListItem } from './src/components/ExampleListItem';
 import { examples } from './src/data/examples';
@@ -7,6 +8,7 @@ import { ExampleItem } from './src/models/Example';
 function HomeScreen() {
   const renderItem = ({ item }: { item: ExampleItem }) => (
     <ExampleListItem
+      key={item.title}
       example={item}
       onPress={() => {
         item.example?.();
@@ -27,12 +29,21 @@ function HomeScreen() {
 
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
-      <SectionList
-        style={{ marginTop: 25, marginBottom: 25 }}
-        sections={examples}
-        renderItem={renderItem}
-        renderSectionHeader={sectionHeader}
-      />
+      <ScrollView testID='scrollView' accessibilityLabel='scrollView'>
+        {examples.map((section) => (
+          <View key={section.title}>
+            {sectionHeader({
+              section: {
+                title: section.title,
+                description: section.description
+              }
+            })}
+
+            {section.data.map((example) => renderItem({ item: example }))}
+          </View>
+        ))}
+      </ScrollView>
+      <StatusBar hidden={process.env.EXPO_PUBLIC_TESTING === "YES"} />
     </SafeAreaView>
   );
 }
@@ -44,7 +55,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#fff'
   },
   headerContainer: {
     backgroundColor: '#fff'
