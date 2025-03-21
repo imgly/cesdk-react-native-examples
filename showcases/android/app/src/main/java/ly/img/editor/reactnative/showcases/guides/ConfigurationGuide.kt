@@ -1,3 +1,5 @@
+@file:Suppress("ktlint:standard:import-ordering")
+
 package ly.img.editor.reactnative.showcases.guides
 
 // #highlight-import-compose

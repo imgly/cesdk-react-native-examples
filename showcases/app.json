@@ -13,7 +13,7 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "ly.img.editor.reactnative.showcases",
+      "bundleIdentifier": "ly.img.editor.react-native.showcases",
       "infoPlist": {
         "NSCameraUsageDescription": "This app uses the camera for demonstration purposes.",
         "NSMicrophoneUsageDescription": "This app uses the camera for demonstration purposes."
