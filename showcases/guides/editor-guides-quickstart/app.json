@@ -1,29 +1,27 @@
 {
   "expo": {
-    "ios": {
-      "plugins": [
-        [
-          "expo-build-properties",
-          {
-            "android": {
-              // highlight-minsdk
-              "minSdkVersion": 24,
-              // highlight-minsdk
-              // highlight-maven
-              "extraMavenRepos": [
-                "https://artifactory.img.ly/artifactory/maven"
-              ],
-              // highlight-maven
-              // highlight-kotlin
-              "kotlinVersion": "1.9.10"
-              // highlight-kotlin
-            },
-            "ios": {
-              "deploymentTarget": "16.0"
-            }
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            // highlight-minsdk
+            "minSdkVersion": 24,
+            // highlight-minsdk
+            // highlight-maven
+            "extraMavenRepos": [
+              "https://artifactory.img.ly/artifactory/maven"
+            ],
+            // highlight-maven
+            // highlight-kotlin
+            "kotlinVersion": "1.9.10"
+            // highlight-kotlin
+          },
+          "ios": {
+            "deploymentTarget": "16.0"
           }
-        ]
+        }
       ]
-    }
+    ]
   }
 }
