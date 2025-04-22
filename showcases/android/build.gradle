@@ -23,6 +23,8 @@ buildscript {
 
 apply plugin: "com.facebook.react.rootproject"
 
+gradle.ext.kotlinCompilerExtensionVersion = "1.5.10"
+
 allprojects {
     repositories {
 // IMG.LY CONFIGURATION - START
