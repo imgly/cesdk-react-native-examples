@@ -19,14 +19,14 @@ export const basicEditor = async (): Promise<void> => {
     userId: 'YOUR_USER_ID'
     // highlight-userId
   });
-  //highlight-configuration
+  // highlight-configuration
 
-  //highlight-source
+  // highlight-source
   const source = require('MY_CUSTOM_SOURCE');
-  //highlight-source
-  //highlight-preset
+  // highlight-source
+  // highlight-preset
   const preset: EditorPreset = EditorPreset.DESIGN;
-  //highlight-preset
+  // highlight-preset
   // highlight-metadata
   const metadata = {
     MY_KEY: 'MY_VALUE'
