@@ -23,7 +23,7 @@ typealias EditorBuilderResult = EditorBuilder.EditorBuilderResult
     func defaultOrCustomEditor(
       defaultEditor: @escaping EditorBuilder.Builder,
       customEditor: @escaping EditorBuilder.Builder,
-      metadata: [String: Any]?
+      metadata: [String: Any]?,
     ) -> EditorBuilder.Builder {
       if let enabled = metadata?["custom"] as? Bool, enabled == true {
         customEditor
@@ -40,7 +40,7 @@ typealias EditorBuilderResult = EditorBuilder.EditorBuilderResult
           customEditor: EditorBuilder.custom { settings, _, _, result in
             CustomPostcardEditor(settings: settings, result: result)
           },
-          metadata: metadata
+          metadata: metadata,
         )
       case .photo:
         defaultOrCustomEditor(
@@ -48,7 +48,7 @@ typealias EditorBuilderResult = EditorBuilder.EditorBuilderResult
           customEditor: EditorBuilder.custom { settings, _, _, result in
             CustomPhotoEditor(settings: settings, result: result)
           },
-          metadata: metadata
+          metadata: metadata,
         )
       case .video:
         defaultOrCustomEditor(
@@ -56,7 +56,7 @@ typealias EditorBuilderResult = EditorBuilder.EditorBuilderResult
           customEditor: EditorBuilder.custom { settings, _, _, result in
             CustomVideoEditor(settings: settings, result: result)
           },
-          metadata: metadata
+          metadata: metadata,
         )
       case .design:
         defaultOrCustomEditor(
@@ -64,7 +64,7 @@ typealias EditorBuilderResult = EditorBuilder.EditorBuilderResult
           customEditor: EditorBuilder.custom { settings, _, _, result in
             CustomDesignEditor(settings: settings, result: result)
           },
-          metadata: metadata
+          metadata: metadata,
         )
       case .apparel:
         defaultOrCustomEditor(
@@ -76,7 +76,7 @@ typealias EditorBuilderResult = EditorBuilder.EditorBuilderResult
           customEditor: EditorBuilder.custom { settings, _, _, result in
             CustomApparelEditor(settings: settings, result: result)
           },
-          metadata: metadata
+          metadata: metadata,
         )
       case nil:
         EditorBuilder.custom { settings, _, _, result in
@@ -300,7 +300,7 @@ extension Customizations {
             try await OnCreate.load(
               settings,
               settings.source?.type ?? .image,
-              defaultSource: PostcardEditor.defaultScene
+              defaultSource: PostcardEditor.defaultScene,
             )(engine)
             try engine.asset.addSource(UnsplashAssetSource(host: Secrets.unsplashHost))
           }
@@ -399,7 +399,7 @@ private final class UnsplashAssetSource: NSObject {
           .init(name: "page", value: String(queryData.page + 1)),
           .init(name: "per_page", value: String(queryData.perPage)),
           .init(name: "content_filter", value: "high"),
-        ]
+        ],
       )
     }
 
@@ -411,7 +411,7 @@ private final class UnsplashAssetSource: NSObject {
           .init(name: "page", value: String(queryData.page + 1)),
           .init(name: "per_page", value: String(queryData.perPage)),
           .init(name: "content_filter", value: "high"),
-        ]
+        ],
       )
     }
 
@@ -447,7 +447,7 @@ extension UnsplashAssetSource: AssetSource {
         assets: response.map(AssetResult.init),
         currentPage: queryData.page,
         nextPage: nextPage,
-        total: -1
+        total: -1,
       )
     } else {
       let response = try decoder.decode(UnsplashSearchResponse.self, from: data)
@@ -458,7 +458,7 @@ extension UnsplashAssetSource: AssetSource {
         assets: results.map(AssetResult.init),
         currentPage: queryData.page,
         nextPage: nextPage,
-        total: total
+        total: total,
       )
     }
   }
@@ -470,14 +470,14 @@ extension UnsplashAssetSource: AssetSource {
   var credits: AssetCredits? {
     .init(
       name: "Unsplash",
-      url: URL(string: "https://unsplash.com/")!
+      url: URL(string: "https://unsplash.com/")!,
     )
   }
 
   var license: AssetLicense? {
     .init(
       name: "Unsplash license (free)",
-      url: URL(string: "https://unsplash.com/license")!
+      url: URL(string: "https://unsplash.com/license")!,
     )
   }
 }
@@ -501,7 +501,7 @@ private extension AssetResult {
       ],
       context: .init(sourceID: "unsplash"),
       credits: .init(name: image.user.name!, url: image.user.links?.html),
-      utm: .init(source: "CE.SDK Demo", medium: "referral")
+      utm: .init(source: "CE.SDK Demo", medium: "referral"),
     )
   }
 }
