@@ -46,6 +46,8 @@
     <string>This app uses the camera for demonstration purposes.</string>
     <key>NSMicrophoneUsageDescription</key>
     <string>This app uses the camera for demonstration purposes.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>This app uses the photo library for demonstration purposes.</string>
     <key>UILaunchStoryboardName</key>
     <string>SplashScreen</string>
     <key>UIRequiredDeviceCapabilities</key>
