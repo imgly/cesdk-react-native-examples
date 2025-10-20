@@ -16,7 +16,8 @@
       "bundleIdentifier": "ly.img.editor.react-native.showcases",
       "infoPlist": {
         "NSCameraUsageDescription": "This app uses the camera for demonstration purposes.",
-        "NSMicrophoneUsageDescription": "This app uses the camera for demonstration purposes."
+        "NSMicrophoneUsageDescription": "This app uses the camera for demonstration purposes.",
+        "NSPhotoLibraryUsageDescription": "This app uses the photo library for demonstration purposes."
       }
     },
     "android": {
