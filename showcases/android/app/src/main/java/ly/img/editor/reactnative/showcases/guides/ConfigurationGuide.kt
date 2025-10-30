@@ -17,7 +17,7 @@ import ly.img.editor.reactnative.module.model.EditorSettings
 // highlight-import-editor
 
 private fun useCustomEditor() {
-    // highlight-closure
+    // highlight-closure-kotlin
     IMGLYEditorModule.builderClosure = { _, metadata ->
         if (metadata?.get("custom") == true) {
             EditorBuilder.custom {
@@ -27,26 +27,26 @@ private fun useCustomEditor() {
             EditorBuilder.design()
         }
     }
-    // highlight-closure
+    // highlight-closure-kotlin
 }
 
 private fun customizeCamera() {
-    // highlight-camera-configuration
-    // highlight-camera-configuration-closure
+    // highlight-camera-configuration-kotlin
+    // highlight-camera-configuration-closure-kotlin
     // Configure the [CaptureVideo.Input].
     IMGLYCameraModule.configurationClosure = { metadata ->
         val engineConfiguration = EngineConfiguration("MY_LICENSE")
         CaptureVideo.Input(engineConfiguration)
     }
 
-    // highlight-camera-configuration-closure
-    // highlight-camera-result-closure
+    // highlight-camera-configuration-closure-kotlin
+    // highlight-camera-result-closure-kotlin
     // Modify the [CameraResult].
     IMGLYCameraModule.resultClosure = { result ->
         CameraResult(result?.recording, mapOf("MY_CUSTOM_KEY" to "MY_CUSTOM_VALUE"))
     }
-    // highlight-camera-result-closure
-    // highlight-camera-configuration
+    // highlight-camera-result-closure-kotlin
+    // highlight-camera-configuration-kotlin
 }
 
 @Composable
