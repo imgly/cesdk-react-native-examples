@@ -7,7 +7,7 @@ export const basicEditor = async (): Promise<void> => {
   // highlight-configuration
   const settings = new EditorSettingsModel({
     // highlight-license
-    license: 'YOUR_LICENSE_KEY',
+    license: 'YOUR_LICENSE_KEY', // Get your license from https://img.ly/forms/free-trial, pass null for evaluation mode with watermark
     // highlight-license
     // highlight-sceneBaseUri
     sceneBaseUri: 'YOUR_SCENE_BASE_URI',

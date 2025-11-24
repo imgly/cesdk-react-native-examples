@@ -1294,15 +1294,15 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
-"@imgly/camera-react-native@1.61.0":
-  version "1.61.0"
-  resolved "https://registry.yarnpkg.com/@imgly/camera-react-native/-/camera-react-native-1.61.0.tgz#8bfdac2bf3cde10694fea979419a5e7e69403cb7"
-  integrity sha512-NkyJzQOoQT59gSJHYl7KwsiLKRfMfvqTcF3ApIUQGu/bE4MJoWIfiYYPuXz+hGGfUFtC+U3y9KFIWOyzEQfqNg==
+"@imgly/camera-react-native@1.63.0":
+  version "1.63.0"
+  resolved "https://registry.yarnpkg.com/@imgly/camera-react-native/-/camera-react-native-1.63.0.tgz#22dd1b2fbd024088f26571fef8c30a9178413d76"
+  integrity sha512-oFXiuDafB7wxQHwIRZLmtfGdyjrN20Xkt7MKRHwaahls2haAG07f8YFV/N27JRhDMfaMsoX+ix4QpfCX0GDhwg==
 
-"@imgly/editor-react-native@1.61.0":
-  version "1.61.0"
-  resolved "https://registry.yarnpkg.com/@imgly/editor-react-native/-/editor-react-native-1.61.0.tgz#bd5c3344f6178cbf599699bb658eec59a3f988bf"
-  integrity sha512-SGr1ggXqiAelLsSFMX24NAcGYGs5EAgHFn7slwGvRAbHPk0qrQI0UrL2g28yTvMFIiA9AxFKReRdjtpZp5ThHA==
+"@imgly/editor-react-native@1.63.0":
+  version "1.63.0"
+  resolved "https://registry.yarnpkg.com/@imgly/editor-react-native/-/editor-react-native-1.63.0.tgz#fd80765d4b89a4ae3049f3f32b93b74bb77b6917"
+  integrity sha512-lSRvwKl/2LVAhyfBg80+7JKzWF/KdRH4e8zHQ/p0anYqXzr54ByzSI41HcBsDxAkdg6uhUR/W9DlqQ/+J22Bng==
 
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
