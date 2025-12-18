@@ -2,11 +2,11 @@ import IMGLYEditor, {
   EditorPreset,
   EditorSettingsModel
 } from '@imgly/editor-react-native';
-import { Secrets } from '../../../secrets/secrets';
 
 export const defaultPhotoEditor = async (): Promise<void> => {
   try {
-    const settings = new EditorSettingsModel({ license: Secrets.license });
+    // Use undefined license to test nil handling (runs in evaluation mode with watermark)
+    const settings = new EditorSettingsModel({ license: undefined });
     
     const result = await IMGLYEditor?.openEditor(
       settings,
