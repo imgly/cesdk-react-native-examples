@@ -1,6 +1,6 @@
 {
   "name": "showcases",
-  "version": "1.67.0",
+  "version": "1.68.0-rc.3",
   "main": "expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@expo/metro-config": "^0.18.11",
-    "@imgly/camera-react-native": "1.67.0",
-    "@imgly/editor-react-native": "1.67.0",
+    "@imgly/camera-react-native": "1.68.0-rc.3",
+    "@imgly/editor-react-native": "1.68.0-rc.3",
     "expo": "~51.0.28",
     "expo-build-properties": "^0.12.5",
     "expo-status-bar": "^2.0.1",
