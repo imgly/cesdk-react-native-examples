@@ -42,15 +42,15 @@ PODS:
   - hermes-engine (0.74.5):
     - hermes-engine/Pre-built (= 0.74.5)
   - hermes-engine/Pre-built (0.74.5)
-  - IMGLYApparelEditor (1.69.0):
-    - IMGLYEditor (= 1.69.0)
-  - IMGLYCamera (1.69.0):
-    - IMGLYCoreUI (= 1.69.0)
-  - IMGLYCameraModule (1.69.0):
+  - IMGLYApparelEditor (1.71.0):
+    - IMGLYEditor (= 1.71.0)
+  - IMGLYCamera (1.71.0):
+    - IMGLYCoreUI (= 1.71.0)
+  - IMGLYCameraModule (1.71.0):
     - DoubleConversion
     - glog
     - hermes-engine
-    - IMGLYCamera (= 1.69.0)
+    - IMGLYCamera (= 1.71.0)
     - RCT-Folly (= 2024.01.01.00)
     - RCTRequired
     - RCTTypeSafety
@@ -68,21 +68,21 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - IMGLYCore (1.69.0):
-    - IMGLYEngine (= 1.69.0)
-  - IMGLYCoreUI (1.69.0):
-    - IMGLYCore (= 1.69.0)
+  - IMGLYCore (1.71.0):
+    - IMGLYEngine (= 1.71.0)
+  - IMGLYCoreUI (1.71.0):
+    - IMGLYCore (= 1.71.0)
     - Kingfisher (>= 7.10.0)
     - SwiftUIIntrospect (~> 1.1.2)
-  - IMGLYDesignEditor (1.69.0):
-    - IMGLYEditor (= 1.69.0)
-  - IMGLYEditor (1.69.0):
-    - IMGLYCamera (= 1.69.0)
-  - IMGLYEditorModule (1.69.0):
+  - IMGLYDesignEditor (1.71.0):
+    - IMGLYEditor (= 1.71.0)
+  - IMGLYEditor (1.71.0):
+    - IMGLYCamera (= 1.71.0)
+  - IMGLYEditorModule (1.71.0):
     - DoubleConversion
     - glog
     - hermes-engine
-    - IMGLYUI (= 1.69.0)
+    - IMGLYUI (= 1.71.0)
     - RCT-Folly (= 2024.01.01.00)
     - RCTRequired
     - RCTTypeSafety
@@ -100,14 +100,14 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - IMGLYEngine (1.69.0)
-  - IMGLYPhotoEditor (1.69.0):
-    - IMGLYEditor (= 1.69.0)
-  - IMGLYPostcardEditor (1.69.0):
-    - IMGLYEditor (= 1.69.0)
-  - IMGLYUI (1.69.0):
-    - IMGLYUI/All (= 1.69.0)
-  - IMGLYUI/All (1.69.0):
+  - IMGLYEngine (1.71.0)
+  - IMGLYPhotoEditor (1.71.0):
+    - IMGLYEditor (= 1.71.0)
+  - IMGLYPostcardEditor (1.71.0):
+    - IMGLYEditor (= 1.71.0)
+  - IMGLYUI (1.71.0):
+    - IMGLYUI/All (= 1.71.0)
+  - IMGLYUI/All (1.71.0):
     - IMGLYUI/ApparelEditor
     - IMGLYUI/Camera
     - IMGLYUI/Core
@@ -117,27 +117,27 @@ PODS:
     - IMGLYUI/PhotoEditor
     - IMGLYUI/PostcardEditor
     - IMGLYUI/VideoEditor
-  - IMGLYUI/ApparelEditor (1.69.0):
-    - IMGLYApparelEditor (= 1.69.0)
-  - IMGLYUI/Camera (1.69.0):
-    - IMGLYCamera (= 1.69.0)
-  - IMGLYUI/Core (1.69.0):
-    - IMGLYCore (= 1.69.0)
-  - IMGLYUI/CoreUI (1.69.0):
-    - IMGLYCoreUI (= 1.69.0)
-  - IMGLYUI/DesignEditor (1.69.0):
-    - IMGLYDesignEditor (= 1.69.0)
-  - IMGLYUI/Editor (1.69.0):
-    - IMGLYEditor (= 1.69.0)
-  - IMGLYUI/PhotoEditor (1.69.0):
-    - IMGLYPhotoEditor (= 1.69.0)
-  - IMGLYUI/PostcardEditor (1.69.0):
-    - IMGLYPostcardEditor (= 1.69.0)
-  - IMGLYUI/VideoEditor (1.69.0):
-    - IMGLYVideoEditor (= 1.69.0)
-  - IMGLYVideoEditor (1.69.0):
-    - IMGLYEditor (= 1.69.0)
-  - Kingfisher (8.7.0)
+  - IMGLYUI/ApparelEditor (1.71.0):
+    - IMGLYApparelEditor (= 1.71.0)
+  - IMGLYUI/Camera (1.71.0):
+    - IMGLYCamera (= 1.71.0)
+  - IMGLYUI/Core (1.71.0):
+    - IMGLYCore (= 1.71.0)
+  - IMGLYUI/CoreUI (1.71.0):
+    - IMGLYCoreUI (= 1.71.0)
+  - IMGLYUI/DesignEditor (1.71.0):
+    - IMGLYDesignEditor (= 1.71.0)
+  - IMGLYUI/Editor (1.71.0):
+    - IMGLYEditor (= 1.71.0)
+  - IMGLYUI/PhotoEditor (1.71.0):
+    - IMGLYPhotoEditor (= 1.71.0)
+  - IMGLYUI/PostcardEditor (1.71.0):
+    - IMGLYPostcardEditor (= 1.71.0)
+  - IMGLYUI/VideoEditor (1.71.0):
+    - IMGLYVideoEditor (= 1.71.0)
+  - IMGLYVideoEditor (1.71.0):
+    - IMGLYEditor (= 1.71.0)
+  - Kingfisher (8.8.0)
   - RCT-Folly (2024.01.01.00):
     - boost
     - DoubleConversion
@@ -1531,20 +1531,20 @@ SPEC CHECKSUMS:
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
   glog: fdfdfe5479092de0c4bdbebedd9056951f092c4f
   hermes-engine: 8c1577f3fdb849cbe7729c2e7b5abc4b845e88f8
-  IMGLYApparelEditor: 981299ab410ba3421e209605b837922b3fe1821a
-  IMGLYCamera: c4e41da0fba5316f6ae84b5d369a01a26541f107
-  IMGLYCameraModule: 94e76a0709641fd011577ee74c03d1316e944ea3
-  IMGLYCore: a0e622d1dadad8ba5eca4180ea53471023fb0736
-  IMGLYCoreUI: 9d2caa1099c67ca76065843260812b026be73525
-  IMGLYDesignEditor: 35a1f6774528f5134cab361880df402534951aa3
-  IMGLYEditor: 0e96efe95d01853b94c34c1cfa0cd0f1938f7c61
-  IMGLYEditorModule: 771560fc487cd23f4142420effb60883bcbf9fa7
-  IMGLYEngine: 978eecb2b292a9661360c375277e3534a532fbdc
-  IMGLYPhotoEditor: 72d9fcd6bbd5499cf239aa48d7f10f93e6522a08
-  IMGLYPostcardEditor: 537acdd7f9cde194fd3f2126952d3d5a261a0d60
-  IMGLYUI: d8ef3372dfd17b9458de99cfa65e703e6483c561
-  IMGLYVideoEditor: 8f24f0ed6b0fc17b29342461c785c2cdc4852bda
-  Kingfisher: 649489bb8748428fa1db7de1479acb7c78d2469d
+  IMGLYApparelEditor: c1ac4077e93baf00f39488f802e378ba61f078af
+  IMGLYCamera: 47ba3cd24bdc74ce9f5da3a13e1f27e429b2ea21
+  IMGLYCameraModule: 9ae99f50c203ba566165a5c2c283ce9323852c5e
+  IMGLYCore: e67bf4805fd68eebb188a362a7ed76c247f03ba7
+  IMGLYCoreUI: 54f3902b24cdaed936a21ba7ec9b1af2601685ec
+  IMGLYDesignEditor: 13a81c3d3945f6a84454b60119cf456bd4bf1126
+  IMGLYEditor: 35578de321cf476e74d89e9af5e900f23c3f7a5c
+  IMGLYEditorModule: 5ee76a337ed86f0d94c381ac4a2c04584e460f1c
+  IMGLYEngine: d9b179228e31d1c2101f063b2fda2763881c35dc
+  IMGLYPhotoEditor: 692bcb323e212d51cabc676791536de147549219
+  IMGLYPostcardEditor: 83bbe7ebee8b5b57468632ff574f10fe8ea77380
+  IMGLYUI: 0c768dd90931984075c2863f0ec749c90949184c
+  IMGLYVideoEditor: e3872a1792b6a2e141a30afd26bb339a35bdfce0
+  Kingfisher: beeaf65ed57dfa710d416aea4093277e8a9b1968
   RCT-Folly: 5dc73daec3476616d19e8a53f0156176f7b55461
   RCTDeprecation: 3afceddffa65aee666dafd6f0116f1d975db1584
   RCTRequired: ec1239bc9d8bf63e10fb92bd8b26171a9258e0c1
