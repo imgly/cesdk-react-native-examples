@@ -1,16 +1,13 @@
-import IMGLYApparelEditor
-import IMGLYDesignEditor
+import IMGLYEditor
 import IMGLYEditorModule
 import IMGLYEngine
-import IMGLYPhotoEditor
-import IMGLYPostcardEditor
-import IMGLYVideoEditor
 import SwiftUI
 
 /// A typealias for `EditorBuilder.EditorBuilderResult` for convenient usage.
 typealias EditorBuilderResult = EditorBuilder.EditorBuilderResult
 
 /// Manages the editor customizations.
+@MainActor
 @objc class Customizations: NSObject {
   /// Applies the customizations.
   @objc static func apply() {
@@ -89,7 +86,7 @@ typealias EditorBuilderResult = EditorBuilder.EditorBuilderResult
 
 // MARK: - Custom Editors
 
-/// An extension  containig the custom editor implementations.
+/// An extension containing the custom editor implementations.
 extension Customizations {
   /// Derives `EngineSettings` for a given `EditorSettings`.
   /// - Parameters:
@@ -105,7 +102,6 @@ extension Customizations {
 
   /// A custom design editor.
   private struct CustomDesignEditor: View {
-    @Environment(\.dismiss) private var dismiss
     private let settings: EditorSettings
     private let result: EditorBuilderResult
 
@@ -115,41 +111,46 @@ extension Customizations {
     }
 
     var body: some View {
-      ModalEditor {
-        DesignEditor(engineSettings(for: settings))
-          .imgly.onCreate { engine in
-            try await OnCreate.load(settings, defaultSource: DesignEditor.defaultScene)(engine)
-            try engine.asset.addSource(UnsplashAssetSource(host: Secrets.unsplashHost))
-          }
-          .imgly.onExport { engine, _ in
-            do {
-              let editorResult = try await OnExport.export(engine, .pdf)
-              result(.success(editorResult))
-            } catch {
-              result(.failure(error))
-            }
-          }
-          .imgly.assetLibrary {
-            DefaultAssetLibrary()
-              .images {
-                AssetLibrarySource.image(.title("Unsplash"), source: .init(id: UnsplashAssetSource.id))
-                DefaultAssetLibrary.images
+      NavigationView {
+        Editor(engineSettings(for: settings))
+          .imgly.configuration {
+            DesignEditorConfiguration { builder in
+              builder.onCreate { engine, _ in
+                if let createScene = try OnCreate.loadFromSettings(settings) {
+                  try await DesignEditorConfiguration.defaultOnCreate(createScene: createScene)(engine)
+                } else {
+                  try await DesignEditorConfiguration.defaultOnCreate()(engine)
+                }
+                try engine.asset.addSource(UnsplashAssetSource(host: Secrets.unsplashHost))
               }
+              builder.onExport { engine, _, _ in
+                do {
+                  let editorResult = try await OnExport.export(engine, .pdf)
+                  result(.success(editorResult))
+                } catch {
+                  result(.failure(error))
+                }
+              }
+              builder.assetLibrary { libBuilder in
+                libBuilder.modify { categories in
+                  categories.modifySections(of: AssetLibraryCategory.ID.images) { sections in
+                    sections.addFirst(.image(
+                      id: UnsplashAssetSource.id,
+                      title: "Unsplash",
+                      source: .init(id: UnsplashAssetSource.id),
+                    ))
+                  }
+                }
+              }
+            }
+            ModalEditorConfiguration(result: result)
           }
-      } onDismiss: { cancelled in
-        if cancelled {
-          result(.success(nil))
-          dismiss()
-        } else {
-          result(.failure("Export failed."))
-        }
-      }
+      }.navigationViewStyle(.stack)
     }
   }
 
   /// A custom apparel editor.
   private struct CustomApparelEditor: View {
-    @Environment(\.dismiss) private var dismiss
     private let settings: EditorSettings
     private let result: EditorBuilderResult
 
@@ -159,44 +160,49 @@ extension Customizations {
     }
 
     var body: some View {
-      ModalEditor {
-        ApparelEditor(engineSettings(for: settings))
-          .imgly.onCreate { engine in
-            try await OnCreate.load(settings, defaultSource: ApparelEditor.defaultScene)(engine)
-            try engine.asset.addSource(UnsplashAssetSource(host: Secrets.unsplashHost))
+      NavigationView {
+        Editor(engineSettings(for: settings))
+          .imgly.configuration {
+            ApparelEditorConfiguration { builder in
+              builder.onCreate { engine, _ in
+                if let createScene = try OnCreate.loadFromSettings(settings) {
+                  try await ApparelEditorConfiguration.defaultOnCreate(createScene: createScene)(engine)
+                } else {
+                  try await ApparelEditorConfiguration.defaultOnCreate()(engine)
+                }
+                try engine.asset.addSource(UnsplashAssetSource(host: Secrets.unsplashHost))
 
-            // This is only needed for UITests.
-            try engine.editor.setSettingBool("showBuildVersion", value: false)
-          }
-          .imgly.onExport { engine, _ in
-            do {
-              let editorResult = try await OnExport.export(engine, .pdf)
-              result(.success(editorResult))
-            } catch {
-              result(.failure(error))
-            }
-          }
-          .imgly.assetLibrary {
-            DefaultAssetLibrary()
-              .images {
-                AssetLibrarySource.image(.title("Unsplash"), source: .init(id: UnsplashAssetSource.id))
-                DefaultAssetLibrary.images
+                // This is only needed for UITests.
+                try engine.editor.setSettingBool("showBuildVersion", value: false)
               }
+              builder.onExport { engine, _, _ in
+                do {
+                  let editorResult = try await OnExport.export(engine, .pdf)
+                  result(.success(editorResult))
+                } catch {
+                  result(.failure(error))
+                }
+              }
+              builder.assetLibrary { libBuilder in
+                libBuilder.modify { categories in
+                  categories.modifySections(of: AssetLibraryCategory.ID.images) { sections in
+                    sections.addFirst(.image(
+                      id: UnsplashAssetSource.id,
+                      title: "Unsplash",
+                      source: .init(id: UnsplashAssetSource.id),
+                    ))
+                  }
+                }
+              }
+            }
+            ModalEditorConfiguration(result: result)
           }
-      } onDismiss: { cancelled in
-        if cancelled {
-          result(.success(nil))
-          dismiss()
-        } else {
-          result(.failure("Export failed."))
-        }
-      }
+      }.navigationViewStyle(.stack)
     }
   }
 
   /// A custom photo editor.
   private struct CustomPhotoEditor: View {
-    @Environment(\.dismiss) private var dismiss
     private let settings: EditorSettings
     private let result: EditorBuilderResult
 
@@ -206,41 +212,46 @@ extension Customizations {
     }
 
     var body: some View {
-      ModalEditor {
-        PhotoEditor(engineSettings(for: settings))
-          .imgly.onCreate { engine in
-            try await OnCreate.load(settings, defaultSource: PhotoEditor.defaultImage)(engine)
-            try engine.asset.addSource(UnsplashAssetSource(host: Secrets.unsplashHost))
-          }
-          .imgly.onExport { engine, _ in
-            do {
-              let editorResult = try await OnExport.export(engine, .png)
-              result(.success(editorResult))
-            } catch {
-              result(.failure(error))
-            }
-          }
-          .imgly.assetLibrary {
-            DefaultAssetLibrary()
-              .images {
-                AssetLibrarySource.image(.title("Unsplash"), source: .init(id: UnsplashAssetSource.id))
-                DefaultAssetLibrary.images
+      NavigationView {
+        Editor(engineSettings(for: settings))
+          .imgly.configuration {
+            PhotoEditorConfiguration { builder in
+              builder.onCreate { engine, _ in
+                if let createScene = try OnCreate.loadFromSettings(settings) {
+                  try await PhotoEditorConfiguration.defaultOnCreate(createScene: createScene)(engine)
+                } else {
+                  try await PhotoEditorConfiguration.defaultOnCreate()(engine)
+                }
+                try engine.asset.addSource(UnsplashAssetSource(host: Secrets.unsplashHost))
               }
+              builder.onExport { engine, _, _ in
+                do {
+                  let editorResult = try await OnExport.export(engine, .png)
+                  result(.success(editorResult))
+                } catch {
+                  result(.failure(error))
+                }
+              }
+              builder.assetLibrary { libBuilder in
+                libBuilder.modify { categories in
+                  categories.modifySections(of: AssetLibraryCategory.ID.images) { sections in
+                    sections.addFirst(.image(
+                      id: UnsplashAssetSource.id,
+                      title: "Unsplash",
+                      source: .init(id: UnsplashAssetSource.id),
+                    ))
+                  }
+                }
+              }
+            }
+            ModalEditorConfiguration(result: result)
           }
-      } onDismiss: { cancelled in
-        if cancelled {
-          result(.success(nil))
-          dismiss()
-        } else {
-          result(.failure("Export failed."))
-        }
-      }
+      }.navigationViewStyle(.stack)
     }
   }
 
   /// A custom video editor.
   private struct CustomVideoEditor: View {
-    @Environment(\.dismiss) private var dismiss
     private let settings: EditorSettings
     private let result: EditorBuilderResult
 
@@ -250,41 +261,47 @@ extension Customizations {
     }
 
     var body: some View {
-      ModalEditor {
-        VideoEditor(engineSettings(for: settings))
-          .imgly.onCreate { engine in
-            try await OnCreate.load(settings, defaultSource: VideoEditor.defaultScene)(engine)
-            try engine.asset.addSource(UnsplashAssetSource(host: Secrets.unsplashHost))
-          }
-          .imgly.onExport { engine, eventHandler in
-            do {
-              let editorResult = try await OnExport.exportVideo(engine, eventHandler, .mp4)
-              result(.success(editorResult))
-            } catch {
-              result(.failure(error))
-            }
-          }
-          .imgly.assetLibrary {
-            DefaultAssetLibrary()
-              .images {
-                AssetLibrarySource.image(.title("Unsplash"), source: .init(id: UnsplashAssetSource.id))
-                DefaultAssetLibrary.images
+      NavigationView {
+        Editor(engineSettings(for: settings))
+          .imgly.configuration {
+            VideoEditorConfiguration { builder in
+              builder.onCreate { engine, _ in
+                if let createScene = try OnCreate.loadFromSettings(settings) {
+                  try await VideoEditorConfiguration.defaultOnCreate(createScene: createScene)(engine)
+                } else {
+                  try await VideoEditorConfiguration.defaultOnCreate()(engine)
+                }
+                try engine.asset.addSource(UnsplashAssetSource(host: Secrets.unsplashHost))
               }
+              builder.onExport { engine, eventHandler, _ in
+                do {
+                  let editorResult = try await OnExport.exportVideo(engine, eventHandler, .mp4)
+                  result(.success(editorResult))
+                } catch {
+                  if error is CancellationError { return }
+                  result(.failure(error))
+                }
+              }
+              builder.assetLibrary { libBuilder in
+                libBuilder.modify { categories in
+                  categories.modifySections(of: AssetLibraryCategory.ID.images) { sections in
+                    sections.addFirst(.image(
+                      id: UnsplashAssetSource.id,
+                      title: "Unsplash",
+                      source: .init(id: UnsplashAssetSource.id),
+                    ))
+                  }
+                }
+              }
+            }
+            ModalEditorConfiguration(result: result)
           }
-      } onDismiss: { cancelled in
-        if cancelled {
-          result(.success(nil))
-          dismiss()
-        } else {
-          result(.failure("Export failed."))
-        }
-      }
+      }.navigationViewStyle(.stack)
     }
   }
 
   /// A custom postcard editor.
   private struct CustomPostcardEditor: View {
-    @Environment(\.dismiss) private var dismiss
     private let settings: EditorSettings
     private let result: EditorBuilderResult
 
@@ -294,45 +311,46 @@ extension Customizations {
     }
 
     var body: some View {
-      ModalEditor {
-        PostcardEditor(engineSettings(for: settings))
-          .imgly.onCreate { engine in
-            try await OnCreate.load(
-              settings,
-              settings.source?.type ?? .image,
-              defaultSource: PostcardEditor.defaultScene,
-            )(engine)
-            try engine.asset.addSource(UnsplashAssetSource(host: Secrets.unsplashHost))
-          }
-          .imgly.onExport { engine, _ in
-            do {
-              let editorResult = try await OnExport.export(engine, .pdf)
-              result(.success(editorResult))
-            } catch {
-              result(.failure(error))
-            }
-          }
-          .imgly.assetLibrary {
-            DefaultAssetLibrary()
-              .images {
-                AssetLibrarySource.image(.title("Unsplash"), source: .init(id: UnsplashAssetSource.id))
-                DefaultAssetLibrary.images
+      NavigationView {
+        Editor(engineSettings(for: settings))
+          .imgly.configuration {
+            PostcardEditorConfiguration { builder in
+              builder.onCreate { engine, _ in
+                if let createScene = try OnCreate.loadFromSettings(settings) {
+                  try await PostcardEditorConfiguration.defaultOnCreate(createScene: createScene)(engine)
+                } else {
+                  try await PostcardEditorConfiguration.defaultOnCreate()(engine)
+                }
+                try engine.asset.addSource(UnsplashAssetSource(host: Secrets.unsplashHost))
               }
+              builder.onExport { engine, _, _ in
+                do {
+                  let editorResult = try await OnExport.export(engine, .pdf)
+                  result(.success(editorResult))
+                } catch {
+                  result(.failure(error))
+                }
+              }
+              builder.assetLibrary { libBuilder in
+                libBuilder.modify { categories in
+                  categories.modifySections(of: AssetLibraryCategory.ID.images) { sections in
+                    sections.addFirst(.image(
+                      id: UnsplashAssetSource.id,
+                      title: "Unsplash",
+                      source: .init(id: UnsplashAssetSource.id),
+                    ))
+                  }
+                }
+              }
+            }
+            ModalEditorConfiguration(result: result)
           }
-      } onDismiss: { cancelled in
-        if cancelled {
-          result(.success(nil))
-          dismiss()
-        } else {
-          result(.failure("Export failed."))
-        }
-      }
+      }.navigationViewStyle(.stack)
     }
   }
 
-  /// A custom apparel editor.
+  /// An apparel editor for UI tests.
   private struct ApparelEditorForUITests: View {
-    @Environment(\.dismiss) private var dismiss
     private let settings: EditorSettings
     private let result: EditorBuilderResult
 
@@ -342,30 +360,32 @@ extension Customizations {
     }
 
     var body: some View {
-      ModalEditor {
-        ApparelEditor(engineSettings(for: settings))
-          .imgly.onCreate { engine in
-            try await OnCreate.load(settings, defaultSource: ApparelEditor.defaultScene)(engine)
+      NavigationView {
+        Editor(engineSettings(for: settings))
+          .imgly.configuration {
+            ApparelEditorConfiguration { builder in
+              builder.onCreate { engine, _ in
+                if let createScene = try OnCreate.loadFromSettings(settings) {
+                  try await ApparelEditorConfiguration.defaultOnCreate(createScene: createScene)(engine)
+                } else {
+                  try await ApparelEditorConfiguration.defaultOnCreate()(engine)
+                }
 
-            // This is only needed for UITests.
-            try engine.editor.setSettingBool("showBuildVersion", value: false)
-          }
-          .imgly.onExport { engine, _ in
-            do {
-              let editorResult = try await OnExport.export(engine, .pdf)
-              result(.success(editorResult))
-            } catch {
-              result(.failure(error))
+                // This is only needed for UITests.
+                try engine.editor.setSettingBool("showBuildVersion", value: false)
+              }
+              builder.onExport { engine, _, _ in
+                do {
+                  let editorResult = try await OnExport.export(engine, .pdf)
+                  result(.success(editorResult))
+                } catch {
+                  result(.failure(error))
+                }
+              }
             }
+            ModalEditorConfiguration(result: result)
           }
-      } onDismiss: { cancelled in
-        if cancelled {
-          result(.success(nil))
-          dismiss()
-        } else {
-          result(.failure("Export failed."))
-        }
-      }
+      }.navigationViewStyle(.stack)
     }
   }
 }

@@ -69,24 +69,21 @@ include ':app'
 includeBuild(new File(["node", "--print", "require.resolve('@react-native/gradle-plugin/package.json', { paths: [require.resolve('react-native/package.json')] })"].execute(null, rootDir).text.trim()).getParentFile())
 
 // Internal use only
-def ubqRootPath = "../../../../"
-def useLocalEditor = System.getenv("UBQ_USE_LOCAL_EDITOR") == "true" || getLocalProperty("useLocalEditor") == "true"
-
-String getLocalProperty(String key) {
-    def propertiesFile = new File(rootDir, "local.properties")
-    if (!propertiesFile.exists()) return false
-    def properties = new Properties()
-    properties.load(propertiesFile.newDataInputStream())
-    return properties.getProperty(key)
-}
-
-if (useLocalEditor) {
-    includeBuild("$ubqRootPath/apps/cesdk_android") {
-        name "editor"
-        dependencySubstitution {
-            substitute module('ly.img:editor') using project(':editor')
-            substitute module('ly.img:camera') using project(':camera')
-        }
-    }
+def ubqRootPath = file("../../../..")
+def editorDir = file("$ubqRootPath/apps/cesdk_android")
+if (editorDir.exists() && System.getenv("UBQ_ANDROID_USE_ARTIFACTS") != "true") {
+    gradle.ext.useMavenLocal = true
+    // todo: For local editor as includeBuild we need gradle wrapper version >= 8.9.
+    // No expo version currently supports such version.
+    // This needs to be fixed at some point and all react native build.gradle files need to be updated.
+//    if (System.getenv("UBQ_ANDROID_USE_ARTIFACTS") != "true") {
+//        includeBuild(editorDir) {
+//            name "editor"
+//            dependencySubstitution {
+//                substitute module('ly.img:editor') using project(':editor')
+//                substitute module('ly.img:camera') using project(':camera')
+//            }
+//        }
+//    }
 }
 // Internal use only
