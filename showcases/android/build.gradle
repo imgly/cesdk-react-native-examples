@@ -27,9 +27,13 @@ gradle.ext.kotlinCompilerExtensionVersion = "1.5.10"
 
 allprojects {
     repositories {
-// IMG.LY CONFIGURATION - START
-        maven { url "https://artifactory.img.ly/artifactory/maven" }
-// IMG.LY CONFIGURATION - END
+        if (gradle.ext.useMavenLocal == true) {
+            mavenLocal()
+        } else {
+            // IMG.LY CONFIGURATION - START
+            maven { url "https://artifactory.img.ly/artifactory/maven" }
+            // IMG.LY CONFIGURATION - END
+        }
 
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
