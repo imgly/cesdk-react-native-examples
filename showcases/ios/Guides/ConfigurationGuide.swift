@@ -6,6 +6,7 @@ import SwiftUI
 
 // highlight-import-swift
 
+@MainActor
 func useCustomEditor() {
   // highlight-closure-swift
   IMGLYEditorModuleSwiftAdapter.shared.builderClosure = { _, metadata in
