@@ -27,7 +27,7 @@ gradle.ext.kotlinCompilerExtensionVersion = "1.5.10"
 
 allprojects {
     repositories {
-        if (gradle.ext.has('useMavenLocal') && gradle.ext.useMavenLocal == true) {
+        if (gradle.ext.useMavenLocal == true) {
             mavenLocal()
         } else {
             // IMG.LY CONFIGURATION - START
