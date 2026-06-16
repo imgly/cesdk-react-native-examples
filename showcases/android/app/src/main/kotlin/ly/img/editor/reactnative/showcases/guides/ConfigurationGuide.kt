@@ -5,7 +5,7 @@ package ly.img.editor.reactnative.showcases.guides
 // highlight-import-compose
 import androidx.compose.runtime.Composable
 // highlight-import-compose
-import ly.img.camera.core.CaptureVideo
+import ly.img.camera.core.CaptureMedia
 import ly.img.camera.core.EngineConfiguration
 import ly.img.camera.reactnative.module.IMGLYCameraModule
 import ly.img.camera.reactnative.module.model.CameraResult
@@ -33,17 +33,17 @@ private fun useCustomEditor() {
 private fun customizeCamera() {
     // highlight-camera-configuration-kotlin
     // highlight-camera-configuration-closure-kotlin
-    // Configure the [CaptureVideo.Input].
+    // Configure the [CaptureMedia.Input].
     IMGLYCameraModule.configurationClosure = { metadata ->
         val engineConfiguration = EngineConfiguration("MY_LICENSE")
-        CaptureVideo.Input(engineConfiguration)
+        CaptureMedia.Input(engineConfiguration)
     }
 
     // highlight-camera-configuration-closure-kotlin
     // highlight-camera-result-closure-kotlin
     // Modify the [CameraResult].
     IMGLYCameraModule.resultClosure = { result ->
-        CameraResult(result?.recording, mapOf("MY_CUSTOM_KEY" to "MY_CUSTOM_VALUE"))
+        CameraResult(result?.capture, mapOf("MY_CUSTOM_KEY" to "MY_CUSTOM_VALUE"))
     }
     // highlight-camera-result-closure-kotlin
     // highlight-camera-configuration-kotlin
