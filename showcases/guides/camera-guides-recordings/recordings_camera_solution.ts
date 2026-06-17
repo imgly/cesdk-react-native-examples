@@ -14,12 +14,19 @@ export const recordings_camera_solution = async (): Promise<void> => {
     }
     // highlight-cancelled
     // highlight-standard
-    result.recordings.forEach((recording) => {
-      console.log(recording.duration);
-      recording.videos.forEach((video) => {
-        console.log(video.uri);
-        console.log(video.rect);
-      });
+    result.captures.forEach((capture) => {
+      if (capture.photo) {
+        capture.photo.images.forEach((image) => {
+          console.log(image.uri);
+          console.log(image.rect);
+        });
+      } else if (capture.video) {
+        console.log(capture.video.duration);
+        capture.video.videos.forEach((video) => {
+          console.log(video.uri);
+          console.log(video.rect);
+        });
+      }
     });
     // highlight-standard
   } catch (error) {
