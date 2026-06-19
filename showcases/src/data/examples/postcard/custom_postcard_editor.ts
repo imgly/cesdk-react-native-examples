@@ -7,7 +7,7 @@ import { Secrets } from '../../../secrets/secrets';
 
 export const customPostcardEditor = async (): Promise<void> => {
   try {
-    const settings = new EditorSettingsModel({ license: Secrets.license });
+    const settings = Secrets.editorSettings();
     const result = await IMGLYEditor?.openEditor(
       settings,
       {
