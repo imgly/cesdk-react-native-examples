@@ -1,12 +1,10 @@
-import IMGLYEditor, {
-  EditorPreset,
-  EditorSettingsModel
-} from '@imgly/editor-react-native';
+import IMGLYEditor, { EditorPreset } from '@imgly/editor-react-native';
+import { Secrets } from '../../../secrets/secrets';
 
 export const defaultPostcardEditor = async (): Promise<void> => {
   try {
     // Use undefined license to test nil handling (runs in evaluation mode with watermark)
-    const settings = new EditorSettingsModel({ license: undefined });
+    const settings = Secrets.evaluationModeSettings();
     const result = await IMGLYEditor?.openEditor(
       settings,
       undefined,
