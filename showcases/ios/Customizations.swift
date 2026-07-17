@@ -93,11 +93,7 @@ extension Customizations {
   ///   - settings: The `EditorSettings` to derive the settings from.
   /// - Returns: The derived `EngineSettings`.
   private static func engineSettings(for settings: EditorSettings) -> EngineSettings {
-    if let url = URL(string: settings.baseUri) {
-      EngineSettings(license: settings.license, userID: settings.userId, baseURL: url)
-    } else {
-      EngineSettings(license: settings.license, userID: settings.userId)
-    }
+    EngineSettings(license: settings.license, userID: settings.userId, baseURL: URL(string: settings.baseUri))
   }
 
   /// A custom design editor.
@@ -278,7 +274,9 @@ extension Customizations {
                   let editorResult = try await OnExport.exportVideo(engine, eventHandler, .mp4)
                   result(.success(editorResult))
                 } catch {
-                  if error is CancellationError { return }
+                  if error is CancellationError {
+                    return
+                  }
                   result(.failure(error))
                 }
               }
@@ -402,7 +400,7 @@ private final class UnsplashAssetSource: NSObject {
   private let host: String
   private let path: String
 
-  public init(host: String, path: String = "/unsplashProxy") {
+  init(host: String, path: String = "/unsplashProxy") {
     self.host = host
     self.path = path
   }
