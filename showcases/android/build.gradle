@@ -31,7 +31,7 @@ allprojects {
             mavenLocal()
         } else {
             // IMG.LY CONFIGURATION - START
-            maven { url "https://artifactory.img.ly/artifactory/maven" }
+            maven { url "https://maven.img.ly/maven" }
             // IMG.LY CONFIGURATION - END
         }
 
