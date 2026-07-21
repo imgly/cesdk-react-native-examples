@@ -10,7 +10,7 @@
             // highlight-minsdk
             // highlight-maven
             "extraMavenRepos": [
-              "https://artifactory.img.ly/artifactory/maven"
+              "https://maven.img.ly/maven"
             ],
             // highlight-maven
             // highlight-kotlin

@@ -6,7 +6,7 @@
         {
           "android": {
             // highlight-maven
-            "extraMavenRepos": ["https://artifactory.img.ly/artifactory/maven"],
+            "extraMavenRepos": ["https://maven.img.ly/maven"],
             // highlight-maven
             // highlight-minsdk
             "minSdkVersion": 24,
