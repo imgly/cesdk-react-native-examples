@@ -47,7 +47,6 @@ import ly.img.editor.reactnative.module.builder.EditorBuilderResult
 import ly.img.editor.reactnative.module.model.EditorPreset
 import ly.img.editor.reactnative.module.model.EditorSettings
 import ly.img.editor.reactnative.module.model.EditorSourceType
-import ly.img.engine.MimeType
 
 class MainActivity : ReactActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -199,7 +198,6 @@ class MainActivity : ReactActivity() {
                                 val result = EditorBuilderDefaults.getExportResult(
                                     scope = this@Editor,
                                     byteBuffer = it,
-                                    mimeType = MimeType.PDF,
                                 )
                                 result(Result.success(result))
                             },
@@ -255,7 +253,6 @@ class MainActivity : ReactActivity() {
                                 val result = EditorBuilderDefaults.getExportResult(
                                     scope = this@Editor,
                                     byteBuffer = it,
-                                    mimeType = MimeType.PDF,
                                 )
                                 result(Result.success(result))
                             },
@@ -312,7 +309,6 @@ class MainActivity : ReactActivity() {
                                 val result = EditorBuilderDefaults.getExportResult(
                                     scope = this@Editor,
                                     byteBuffer = it,
-                                    mimeType = MimeType.PNG,
                                 )
                                 result(Result.success(result))
                             },
@@ -368,7 +364,6 @@ class MainActivity : ReactActivity() {
                                 val result = EditorBuilderDefaults.getExportResult(
                                     scope = this@Editor,
                                     byteBuffer = it,
-                                    mimeType = MimeType.PDF,
                                 )
                                 result(Result.success(result))
                             },
@@ -424,7 +419,6 @@ class MainActivity : ReactActivity() {
                                 val result = EditorBuilderDefaults.getExportResult(
                                     scope = this@Editor,
                                     byteBuffer = it,
-                                    mimeType = MimeType.MP4,
                                 )
                                 result(Result.success(result))
                             },

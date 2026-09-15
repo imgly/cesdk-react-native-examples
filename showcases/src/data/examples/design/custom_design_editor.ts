@@ -7,7 +7,7 @@ import { Secrets } from '../../../secrets/secrets';
 
 export const customDesignEditor = async (): Promise<void> => {
   try {
-    const settings = Secrets.editorSettings();
+    const settings = new EditorSettingsModel({ license: Secrets.license });
     const result = await IMGLYEditor?.openEditor(
       settings,
       {
