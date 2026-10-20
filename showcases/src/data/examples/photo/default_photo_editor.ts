@@ -5,7 +5,7 @@ export const defaultPhotoEditor = async (): Promise<void> => {
   try {
     // Use undefined license to test nil handling (runs in evaluation mode with watermark)
     const settings = Secrets.evaluationModeSettings();
-    
+
     const result = await IMGLYEditor?.openEditor(
       settings,
       undefined,

@@ -29,7 +29,7 @@ function HomeScreen() {
 
   return (
     <SafeAreaView edges={['top']} style={styles.container}>
-      <ScrollView testID='scrollView' accessibilityLabel='scrollView'>
+      <ScrollView testID="scrollView" accessibilityLabel="scrollView">
         {examples.map((section) => (
           <View key={section.title}>
             {sectionHeader({
@@ -43,7 +43,7 @@ function HomeScreen() {
           </View>
         ))}
       </ScrollView>
-      <StatusBar hidden={process.env.EXPO_PUBLIC_TESTING === "YES"} />
+      <StatusBar hidden={process.env.EXPO_PUBLIC_TESTING === 'YES'} />
     </SafeAreaView>
   );
 }
