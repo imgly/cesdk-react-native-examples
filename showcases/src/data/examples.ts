@@ -13,81 +13,85 @@ import { defaultVideoEditor } from './examples/video/default_video_editor';
 
 const cameraExamples: ExampleItem[] = [
   {
-      title: "Camera",
-      description: "Opens the camera.",
-      example: camera
+    title: 'Camera',
+    description: 'Opens the camera.',
+    example: camera
   }
 ];
 
 const photoExamples: ExampleItem[] = [
-    {
-        title: "Default Photo Editor",
-        description: "Loads empty image.",
-        example: defaultPhotoEditor
-    },
-    {
-        title: "Custom Photo Editor",
-        description: "Loads a selected image.",
-        example: customPhotoEditor
-    },
+  {
+    title: 'Default Photo Editor',
+    description: 'Loads empty image.',
+    example: defaultPhotoEditor
+  },
+  {
+    title: 'Custom Photo Editor',
+    description: 'Loads a selected image.',
+    example: customPhotoEditor
+  }
 ];
 
 const designExamples: ExampleItem[] = [
-    {
-        title: "Default Design Editor",
-        description: "Loads empty design scene.",
-        example: defaultDesignEditor
-    },
-    {
-        title: "Custom Design Editor",
-        description: "Loads custom design scene and adds Unsplash asset source and library.",
-        example: customDesignEditor
-    },
+  {
+    title: 'Default Design Editor',
+    description: 'Loads empty design scene.',
+    example: defaultDesignEditor
+  },
+  {
+    title: 'Custom Design Editor',
+    description:
+      'Loads custom design scene and adds Unsplash asset source and library.',
+    example: customDesignEditor
+  }
 ];
 
 const apparelExamples: ExampleItem[] = [
-    {
-        title: "Default Apparel Editor",
-        description: "Loads empty apparel scene.",
-        example: defaultApparelEditor
-    },
-    {
-        title: "Custom Apparel Editor",
-        description: "Loads custom apparel scene and adds Unsplash asset source and library.",
-        example: customApparelEditor
-    },
+  {
+    title: 'Default Apparel Editor',
+    description: 'Loads empty apparel scene.',
+    example: defaultApparelEditor
+  },
+  {
+    title: 'Custom Apparel Editor',
+    description:
+      'Loads custom apparel scene and adds Unsplash asset source and library.',
+    example: customApparelEditor
+  }
 ];
 
 const postcardExamples: ExampleItem[] = [
-    {
-        title: "Default Postcard Editor",
-        description: "Loads empty postcard scene.",
-        example: defaultPostcardEditor
-    },
-    {
-        title: "Custom Postcard Editor",
-        description: "Loads custom postcard scene and adds Unsplash asset source and library.",
-        example: customPostcardEditor
-    },
+  {
+    title: 'Default Postcard Editor',
+    description: 'Loads empty postcard scene.',
+    example: defaultPostcardEditor
+  },
+  {
+    title: 'Custom Postcard Editor',
+    description:
+      'Loads custom postcard scene and adds Unsplash asset source and library.',
+    example: customPostcardEditor
+  }
 ];
 
 const videoExamples: ExampleItem[] = [
-    {
-        title: "Default Video Editor",
-        description: "Loads empty video scene.",
-        example: defaultVideoEditor
-    },
-    {
-        title: "Custom Video Editor",
-        description: "Loads custom video scene and adds Unsplash asset source and library.",
-        example: customVideoEditor
-    },
+  {
+    title: 'Default Video Editor',
+    description: 'Loads empty video scene.',
+    example: defaultVideoEditor
+  },
+  {
+    title: 'Custom Video Editor',
+    description:
+      'Loads custom video scene and adds Unsplash asset source and library.',
+    example: customVideoEditor
+  }
 ];
 
 export const examples = [
   {
-    title: "Camera",
-    description: "Built to capture stunning scenes.",
+    title: 'Camera',
+    description: 'Built to capture stunning scenes.',
     data: cameraExamples
   },
   {
