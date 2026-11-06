@@ -3,7 +3,8 @@
 buildscript {
     ext {
         buildToolsVersion = findProperty('android.buildToolsVersion') ?: '34.0.0'
-        minSdkVersion = Integer.parseInt(findProperty('android.minSdkVersion') ?: '23')
+        minSdkVersion = Integer.parseInt(findProperty('android.minSdkVersion') ?: '24')
+        // Bump compile/target SDK to 37 once AGP 9.x+, RN 0.87, and a compatible Expo release (58+) work together.
         compileSdkVersion = Integer.parseInt(findProperty('android.compileSdkVersion') ?: '34')
         targetSdkVersion = Integer.parseInt(findProperty('android.targetSdkVersion') ?: '34')
         kotlinVersion = findProperty('android.kotlinVersion') ?: '1.9.22'
