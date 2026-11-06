@@ -28,7 +28,8 @@ self.define_singleton_method(use_autolinking_method_symbol) do |*args|
   end
 end
 
-platform :ios, podfile_properties['ios.deploymentTarget'] || '13.4'
+ios_deployment_target = podfile_properties.fetch('ios.deploymentTarget')
+platform :ios, ios_deployment_target
 install! 'cocoapods',
   :deterministic_uuids => false
 
@@ -70,6 +71,16 @@ target 'showcases' do
       :mac_catalyst_enabled => false,
       :ccache_enabled => podfile_properties['apple.ccacheEnabled'] == 'true',
     )
+
+    # Pods can declare a lower minimum than the app, which newer Xcode SDKs reject.
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        deployment_target = config.build_settings['IPHONEOS_DEPLOYMENT_TARGET']
+        if deployment_target.nil? || Gem::Version.new(deployment_target) < Gem::Version.new(ios_deployment_target)
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = ios_deployment_target
+        end
+      end
+    end
 
     # This is necessary for Xcode 14, because it signs resource bundles by default
     # when building for devices.

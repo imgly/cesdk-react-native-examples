@@ -4,14 +4,14 @@ import IMGLYEditor, {
   SourceType
 } from '@imgly/editor-react-native';
 import { Secrets } from '../../../secrets/secrets';
- 
+
 export const customVideoEditor = async (): Promise<void> => {
   try {
     const settings = Secrets.editorSettings();
     const result = await IMGLYEditor.openEditor(
       settings,
       {
-        source: require("../../../../assets/red-dot.scene"),
+        source: require('../../../../assets/red-dot.scene'),
         type: SourceType.SCENE
       },
       EditorPreset.VIDEO,
