@@ -10,6 +10,7 @@ import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
 import expo.modules.ReactActivityDelegateWrapper
+import kotlinx.coroutines.CancellationException
 import ly.img.editor.Editor
 import ly.img.editor.configuration.apparel.ApparelConfigurationBuilder
 import ly.img.editor.configuration.apparel.callback.onCreate
@@ -33,12 +34,15 @@ import ly.img.editor.configuration.video.callback.onExport
 import ly.img.editor.configuration.video.callback.onLoadAssetSources
 import ly.img.editor.core.configuration.EditorConfiguration
 import ly.img.editor.core.configuration.remember
+import ly.img.editor.core.configuration.then
 import ly.img.editor.core.library.AssetLibrary
 import ly.img.editor.core.library.AssetType
 import ly.img.editor.core.library.LibraryCategory
 import ly.img.editor.core.library.LibraryContent
 import ly.img.editor.core.library.addSection
 import ly.img.editor.core.library.data.AssetSourceType
+import ly.img.editor.plugin.backgroundRemoval.IMGLYBackgroundRemovalPlugin
+import ly.img.editor.plugin.voiceIsolation.IMGLYVoiceIsolationPlugin
 import ly.img.editor.reactnative.module.IMGLYEditorModule
 import ly.img.editor.reactnative.module.builder.Builder
 import ly.img.editor.reactnative.module.builder.EditorBuilder
@@ -108,7 +112,7 @@ class MainActivity : ReactActivity() {
         super.onStart()
 
         IMGLYEditorModule.builderClosure = { preset, metadata ->
-            when (preset) {
+            pluginEditor(metadata) ?: when (preset) {
                 EditorPreset.APPAREL -> {
                     builderOrCustom({ EditorBuilder.apparel() }, {
                         EditorBuilder.custom {
@@ -174,6 +178,7 @@ class MainActivity : ReactActivity() {
     ) {
         Editor(
             license = settings.license,
+            host = "react-native",
             baseUri = settings.baseUri.toUri(),
             userId = settings.userId,
             configuration = {
@@ -230,6 +235,7 @@ class MainActivity : ReactActivity() {
     ) {
         Editor(
             license = settings.license,
+            host = "react-native",
             baseUri = settings.baseUri.toUri(),
             userId = settings.userId,
             configuration = {
@@ -286,6 +292,7 @@ class MainActivity : ReactActivity() {
     ) {
         Editor(
             license = settings.license,
+            host = "react-native",
             baseUri = settings.baseUri.toUri(),
             userId = settings.userId,
             configuration = {
@@ -343,6 +350,7 @@ class MainActivity : ReactActivity() {
     ) {
         Editor(
             license = settings.license,
+            host = "react-native",
             baseUri = settings.baseUri.toUri(),
             userId = settings.userId,
             configuration = {
@@ -399,6 +407,7 @@ class MainActivity : ReactActivity() {
     ) {
         Editor(
             license = settings.license,
+            host = "react-native",
             baseUri = settings.baseUri.toUri(),
             userId = settings.userId,
             configuration = {
@@ -426,10 +435,14 @@ class MainActivity : ReactActivity() {
                                     byteBuffer = it,
                                     mimeType = MimeType.MP4,
                                 )
+                                exportStatus = null
                                 result(Result.success(result))
                             },
                             error = {
-                                result(Result.failure(it))
+                                exportStatus = null
+                                if (it !is CancellationException) {
+                                    result(Result.failure(it))
+                                }
                             },
                         )
                     }
@@ -446,6 +459,111 @@ class MainActivity : ReactActivity() {
         ) {
             onClose(it)
         }
+    }
+
+    @Composable
+    fun BackgroundRemovalPhotoEditor(
+        settings: EditorSettings,
+        result: EditorBuilderResult,
+        onClose: (Throwable?) -> Unit,
+    ) {
+        Editor(
+            license = settings.license,
+            host = "react-native",
+            baseUri = settings.baseUri.toUri(),
+            userId = settings.userId,
+            configuration = {
+                EditorConfiguration
+                    .remember(::PhotoConfigurationBuilder) {
+                        onCreate = {
+                            onCreate(
+                                createScene = {
+                                    EditorBuilderDefaults.onCreateScene(
+                                        scope = this@Editor,
+                                        settings = settings,
+                                        defaultUri = EditorBuilderDefaults.defaultPhotoUri,
+                                        sourceType = EditorSourceType.IMAGE,
+                                    )
+                                },
+                            )
+                        }
+                        onExport = {
+                            onExport(
+                                postExport = {
+                                    val exported = EditorBuilderDefaults.getExportResult(
+                                        scope = this@Editor,
+                                        byteBuffer = it,
+                                        mimeType = MimeType.PNG,
+                                    )
+                                    result(Result.success(exported))
+                                },
+                                error = {
+                                    result(Result.failure(it))
+                                },
+                            )
+                        }
+                    }.then(::IMGLYBackgroundRemovalPlugin)
+            },
+        ) {
+            onClose(it)
+        }
+    }
+
+    @Composable
+    fun VoiceIsolationVideoEditor(
+        settings: EditorSettings,
+        result: EditorBuilderResult,
+        onClose: (Throwable?) -> Unit,
+    ) {
+        Editor(
+            license = settings.license,
+            host = "react-native",
+            baseUri = settings.baseUri.toUri(),
+            userId = settings.userId,
+            configuration = {
+                EditorConfiguration
+                    .remember(::VideoConfigurationBuilder) {
+                        onCreate = {
+                            onCreate(
+                                createScene = {
+                                    EditorBuilderDefaults.onCreateScene(
+                                        scope = this@Editor,
+                                        settings = settings,
+                                        defaultUri = "file:///android_asset/scene/video.scene".toUri(),
+                                    )
+                                },
+                            )
+                        }
+                        onExport = {
+                            onExport(
+                                postExport = {
+                                    val exported = EditorBuilderDefaults.getExportResult(
+                                        scope = this@Editor,
+                                        byteBuffer = it,
+                                        mimeType = MimeType.MP4,
+                                    )
+                                    exportStatus = null
+                                    result(Result.success(exported))
+                                },
+                                error = {
+                                    exportStatus = null
+                                    if (it !is CancellationException) {
+                                        result(Result.failure(it))
+                                    }
+                                },
+                            )
+                        }
+                    }.then(::IMGLYVoiceIsolationPlugin)
+            },
+        ) {
+            onClose(it)
+        }
+    }
+
+    private fun pluginEditor(metadata: Map<String, Any>?): Builder? = when (metadata?.get("plugin")) {
+        "backgroundRemoval" -> EditorBuilder.custom { BackgroundRemovalPhotoEditor(settings, result, onClose) }
+        "voiceIsolation" -> EditorBuilder.custom { VoiceIsolationVideoEditor(settings, result, onClose) }
+        else -> null
     }
 
     private inline fun builderOrCustom(

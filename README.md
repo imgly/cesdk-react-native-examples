@@ -26,10 +26,16 @@ You can run the SDK in evaluation mode by passing `null` or an empty string as t
 
 In order to run the `showcases` application in this repository with a license key, use the instructions below:
 
-1. Get a free trial license at https://img.ly/forms/free-trial.
+1. Request a license at https://img.ly/forms/contact-sales/.
 2. Copy the license key.
 3. Include the license key in the `src/secrets/secrets.ts` file:
 
 ```
 static license = {YOUR_LICENSE_KEY}
 ```
+
+## Plugins
+
+The Plugins entries of the `showcases` application add the background removal and voice isolation plugins. The plugins go into `showcases/ios/Podfile` and `showcases/android/app/build.gradle`, and the editors that use them into `showcases/ios/Customizations.swift` and `MainActivity.kt`.
+
+The voice isolation sample uses a LibriVox recording of *Cleek of Scotland Yard*, chapter 6, read by Ruth Golding ([CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/), [archive.org](https://archive.org/details/cleek_scotland_yard_rg_librivox)), mixed with generated noise.

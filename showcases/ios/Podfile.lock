@@ -42,15 +42,15 @@ PODS:
   - hermes-engine (0.74.5):
     - hermes-engine/Pre-built (= 0.74.5)
   - hermes-engine/Pre-built (0.74.5)
-  - IMGLYApparelEditor (1.77.0):
-    - IMGLYEditor (= 1.77.0)
-  - IMGLYCamera (1.77.0):
-    - IMGLYCoreUI (= 1.77.0)
-  - IMGLYCameraModule (1.77.0):
+  - IMGLYApparelEditor (1.87.0-rc.1):
+    - IMGLYEditor (= 1.87.0-rc.1)
+  - IMGLYCamera (1.87.0-rc.1):
+    - IMGLYCoreUI (= 1.87.0-rc.1)
+  - IMGLYCameraModule (1.87.0-rc.1):
     - DoubleConversion
     - glog
     - hermes-engine
-    - IMGLYCamera (= 1.77.0)
+    - IMGLYCamera (= 1.87.0-rc.1)
     - RCT-Folly (= 2024.01.01.00)
     - RCTRequired
     - RCTTypeSafety
@@ -68,21 +68,21 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - IMGLYCore (1.77.0):
-    - IMGLYEngine (= 1.77.0)
-  - IMGLYCoreUI (1.77.0):
-    - IMGLYCore (= 1.77.0)
+  - IMGLYCore (1.87.0-rc.1):
+    - IMGLYEngine (= 1.87.0-rc.1)
+  - IMGLYCoreUI (1.87.0-rc.1):
+    - IMGLYCore (= 1.87.0-rc.1)
     - Kingfisher (>= 7.10.0)
     - SwiftUIIntrospect (~> 1.1.2)
-  - IMGLYDesignEditor (1.77.0):
-    - IMGLYEditor (= 1.77.0)
-  - IMGLYEditor (1.77.0):
-    - IMGLYCamera (= 1.77.0)
-  - IMGLYEditorModule (1.77.0):
+  - IMGLYDesignEditor (1.87.0-rc.1):
+    - IMGLYEditor (= 1.87.0-rc.1)
+  - IMGLYEditor (1.87.0-rc.1):
+    - IMGLYCamera (= 1.87.0-rc.1)
+  - IMGLYEditorModule (1.87.0-rc.1):
     - DoubleConversion
     - glog
     - hermes-engine
-    - IMGLYUI (= 1.77.0)
+    - IMGLYUI (= 1.87.0-rc.1)
     - RCT-Folly (= 2024.01.01.00)
     - RCTRequired
     - RCTTypeSafety
@@ -100,14 +100,33 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - IMGLYEngine (1.77.0)
-  - IMGLYPhotoEditor (1.77.0):
-    - IMGLYEditor (= 1.77.0)
-  - IMGLYPostcardEditor (1.77.0):
-    - IMGLYEditor (= 1.77.0)
-  - IMGLYUI (1.77.0):
-    - IMGLYUI/All (= 1.77.0)
-  - IMGLYUI/All (1.77.0):
+  - IMGLYEngine (1.87.0-rc.1)
+  - IMGLYPhotoEditor (1.87.0-rc.1):
+    - IMGLYEditor (= 1.87.0-rc.1)
+  - IMGLYPluginBackgroundRemoval (1.87.0-rc.1):
+    - IMGLYPluginBackgroundRemovalCore (= 1.87.0-rc.1)
+    - IMGLYPluginBackgroundRemovalONNX (= 1.87.0-rc.1)
+    - IMGLYPluginBackgroundRemovalVision (= 1.87.0-rc.1)
+  - IMGLYPluginBackgroundRemovalCore (1.87.0-rc.1):
+    - IMGLYUI (= 1.87.0-rc.1)
+  - IMGLYPluginBackgroundRemovalONNX (1.87.0-rc.1):
+    - IMGLYPluginBackgroundRemovalCore (= 1.87.0-rc.1)
+    - onnxruntime-objc (= 1.24.2)
+  - IMGLYPluginBackgroundRemovalVision (1.87.0-rc.1):
+    - IMGLYPluginBackgroundRemovalCore (= 1.87.0-rc.1)
+  - IMGLYPluginVoiceIsolation (1.87.0-rc.1):
+    - IMGLYPluginVoiceIsolationCore (= 1.87.0-rc.1)
+    - IMGLYPluginVoiceIsolationONNX (= 1.87.0-rc.1)
+  - IMGLYPluginVoiceIsolationCore (1.87.0-rc.1):
+    - IMGLYUI (= 1.87.0-rc.1)
+  - IMGLYPluginVoiceIsolationONNX (1.87.0-rc.1):
+    - IMGLYPluginVoiceIsolationCore (= 1.87.0-rc.1)
+    - onnxruntime-objc (= 1.24.2)
+  - IMGLYPostcardEditor (1.87.0-rc.1):
+    - IMGLYEditor (= 1.87.0-rc.1)
+  - IMGLYUI (1.87.0-rc.1):
+    - IMGLYUI/All (= 1.87.0-rc.1)
+  - IMGLYUI/All (1.87.0-rc.1):
     - IMGLYUI/ApparelEditor
     - IMGLYUI/Camera
     - IMGLYUI/Core
@@ -117,27 +136,32 @@ PODS:
     - IMGLYUI/PhotoEditor
     - IMGLYUI/PostcardEditor
     - IMGLYUI/VideoEditor
-  - IMGLYUI/ApparelEditor (1.77.0):
-    - IMGLYApparelEditor (= 1.77.0)
-  - IMGLYUI/Camera (1.77.0):
-    - IMGLYCamera (= 1.77.0)
-  - IMGLYUI/Core (1.77.0):
-    - IMGLYCore (= 1.77.0)
-  - IMGLYUI/CoreUI (1.77.0):
-    - IMGLYCoreUI (= 1.77.0)
-  - IMGLYUI/DesignEditor (1.77.0):
-    - IMGLYDesignEditor (= 1.77.0)
-  - IMGLYUI/Editor (1.77.0):
-    - IMGLYEditor (= 1.77.0)
-  - IMGLYUI/PhotoEditor (1.77.0):
-    - IMGLYPhotoEditor (= 1.77.0)
-  - IMGLYUI/PostcardEditor (1.77.0):
-    - IMGLYPostcardEditor (= 1.77.0)
-  - IMGLYUI/VideoEditor (1.77.0):
-    - IMGLYVideoEditor (= 1.77.0)
-  - IMGLYVideoEditor (1.77.0):
-    - IMGLYEditor (= 1.77.0)
-  - Kingfisher (8.10.0)
+  - IMGLYUI/ApparelEditor (1.87.0-rc.1):
+    - IMGLYApparelEditor (= 1.87.0-rc.1)
+  - IMGLYUI/Camera (1.87.0-rc.1):
+    - IMGLYCamera (= 1.87.0-rc.1)
+  - IMGLYUI/Core (1.87.0-rc.1):
+    - IMGLYCore (= 1.87.0-rc.1)
+  - IMGLYUI/CoreUI (1.87.0-rc.1):
+    - IMGLYCoreUI (= 1.87.0-rc.1)
+  - IMGLYUI/DesignEditor (1.87.0-rc.1):
+    - IMGLYDesignEditor (= 1.87.0-rc.1)
+  - IMGLYUI/Editor (1.87.0-rc.1):
+    - IMGLYEditor (= 1.87.0-rc.1)
+  - IMGLYUI/PhotoEditor (1.87.0-rc.1):
+    - IMGLYPhotoEditor (= 1.87.0-rc.1)
+  - IMGLYUI/PostcardEditor (1.87.0-rc.1):
+    - IMGLYPostcardEditor (= 1.87.0-rc.1)
+  - IMGLYUI/VideoEditor (1.87.0-rc.1):
+    - IMGLYVideoEditor (= 1.87.0-rc.1)
+  - IMGLYVideoEditor (1.87.0-rc.1):
+    - IMGLYEditor (= 1.87.0-rc.1)
+  - Kingfisher (8.16.0)
+  - onnxruntime-c (1.24.2)
+  - onnxruntime-objc (1.24.2):
+    - onnxruntime-objc/Core (= 1.24.2)
+  - onnxruntime-objc/Core (1.24.2):
+    - onnxruntime-c (= 1.24.2)
   - RCT-Folly (2024.01.01.00):
     - boost
     - DoubleConversion
@@ -1317,6 +1341,8 @@ DEPENDENCIES:
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
   - "IMGLYCameraModule (from `../node_modules/@imgly/camera-react-native`)"
   - "IMGLYEditorModule (from `../node_modules/@imgly/editor-react-native`)"
+  - IMGLYPluginBackgroundRemoval (= 1.87.0-rc.1)
+  - IMGLYPluginVoiceIsolation (= 1.87.0-rc.1)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
@@ -1370,7 +1396,7 @@ DEPENDENCIES:
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
-  trunk:
+  https://github.com/imgly/cesdk-specs.git:
     - IMGLYApparelEditor
     - IMGLYCamera
     - IMGLYCore
@@ -1379,10 +1405,20 @@ SPEC REPOS:
     - IMGLYEditor
     - IMGLYEngine
     - IMGLYPhotoEditor
+    - IMGLYPluginBackgroundRemoval
+    - IMGLYPluginBackgroundRemovalCore
+    - IMGLYPluginBackgroundRemovalONNX
+    - IMGLYPluginBackgroundRemovalVision
+    - IMGLYPluginVoiceIsolation
+    - IMGLYPluginVoiceIsolationCore
+    - IMGLYPluginVoiceIsolationONNX
     - IMGLYPostcardEditor
     - IMGLYUI
     - IMGLYVideoEditor
+  trunk:
     - Kingfisher
+    - onnxruntime-c
+    - onnxruntime-objc
     - SocketRocket
     - SwiftUIIntrospect
 
@@ -1531,20 +1567,29 @@ SPEC CHECKSUMS:
   fmt: 4c2741a687cc09f0634a2e2c72a838b99f1ff120
   glog: fdfdfe5479092de0c4bdbebedd9056951f092c4f
   hermes-engine: 8c1577f3fdb849cbe7729c2e7b5abc4b845e88f8
-  IMGLYApparelEditor: 6107545679661f5ef895a453d1f925cbf2ffa57b
-  IMGLYCamera: bd2659d79683dc947e8d10da43da55974eaa1581
-  IMGLYCameraModule: 662467a1aa068684d4d5c577976a4f33207a621e
-  IMGLYCore: 462e5d091a0caed7896fb0c6d9cf72c3117bfadf
-  IMGLYCoreUI: 29868867763dad79a76929f1c115445c0132413a
-  IMGLYDesignEditor: 597b335605c2dd84c57036889c2b8b2c8f7ff0bf
-  IMGLYEditor: 4998945111329f78561bfcf702a4ddf31609438e
-  IMGLYEditorModule: 24e7bfcdea660d7c92a0f887e659923e1611ec43
-  IMGLYEngine: f6ae666978940d36ec24473f8078e3e4d9212fbd
-  IMGLYPhotoEditor: c90134dcf757bb2e02f74d38690cf453ca9b8e82
-  IMGLYPostcardEditor: 7d5cd372571ee4051dc7984f7e148e037b7d889f
-  IMGLYUI: 176e9a900cf31d74f21a5b3fea5b12ec8a931638
-  IMGLYVideoEditor: 5d17303b82cb55220e9bfc4aecbcc60cda342edf
-  Kingfisher: db468f911dd666c9134dcbeec4db8bed52e4132d
+  IMGLYApparelEditor: c723a3b43e99e7066cf2b2cd54d6a0b0e1845937
+  IMGLYCamera: 9db783b646ee226596ac73de68bc5dd3321d53f0
+  IMGLYCameraModule: dcbd4d2906c388b13f0c940ea203d8ce79911a4f
+  IMGLYCore: c64f394d69ebc127fc964dc0a16946121a80504e
+  IMGLYCoreUI: f8ad6fe92dec2abacc13c9e5dcab371d8586a621
+  IMGLYDesignEditor: efdf52701558cdf6705b10fb2da5de5b657cb995
+  IMGLYEditor: 22dc3e1b4ffe7147903425210284fe5dcef772c7
+  IMGLYEditorModule: 0563618122463c53924e8fa638ea986c99fd1d42
+  IMGLYEngine: cd71280aa48f640fff4e3a5106317650ce6b7019
+  IMGLYPhotoEditor: e26726dd1caed08dda7e4aa420f0ad92f20ab582
+  IMGLYPluginBackgroundRemoval: eb19922790b48fe1d5a08081ec041291b42bbbf2
+  IMGLYPluginBackgroundRemovalCore: 960361d18a7a6581c8d89ca2ba9cb824a5fa86ee
+  IMGLYPluginBackgroundRemovalONNX: 825807f9c57eb0afe5140477db9ddf585c758bdc
+  IMGLYPluginBackgroundRemovalVision: 7e5e098ca782947d4c230199c78bf2f44d642a26
+  IMGLYPluginVoiceIsolation: 7f19e332a4f7cb4ffbae6f69cbd01f20f689c15e
+  IMGLYPluginVoiceIsolationCore: 7f3460efb84a8951fb436e90b9b39797fa8fcac7
+  IMGLYPluginVoiceIsolationONNX: 5cbb77b7ca3ac691dfcddcc4fd28bfb94da9d71f
+  IMGLYPostcardEditor: 47e49a9aa6a9e66868d5960f7fe28a5181860ae3
+  IMGLYUI: 120056dbd899af4b418c0f8f8e16aad680a78f2b
+  IMGLYVideoEditor: 0a7209c9536f0077a8b5bcaa7f1f9c0a41aaca29
+  Kingfisher: b329a33a08cbdc616d53629d08b4eef8eacd865a
+  onnxruntime-c: b58bafbc58707d165404665e46a7467a16e8e0e4
+  onnxruntime-objc: 99e0fe4b6d606970c6c1350c194c7629ef6e6fc9
   RCT-Folly: 5dc73daec3476616d19e8a53f0156176f7b55461
   RCTDeprecation: 3afceddffa65aee666dafd6f0116f1d975db1584
   RCTRequired: ec1239bc9d8bf63e10fb92bd8b26171a9258e0c1
@@ -1597,6 +1642,6 @@ SPEC CHECKSUMS:
   SwiftUIIntrospect: 434b406dc6f5e30744bb6e180f90343f6a8eba8c
   Yoga: 33622183a85805e12703cd618b2c16bfd18bfffb
 
-PODFILE CHECKSUM: cc860b8a2b55d0b3cd44e6b5a5fb1739b4667b50
+PODFILE CHECKSUM: 7d7e623ab272c0b933f5db33a6f5c32d63cc6b5c
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.17.0
