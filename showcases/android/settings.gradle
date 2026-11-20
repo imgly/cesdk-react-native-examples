@@ -12,7 +12,7 @@ pluginManagement {
 
 plugins {
     id("com.facebook.react.settings")
-    id 'com.github.gmazzo.buildconfig' version "5.3.5" apply false
+    id 'com.github.gmazzo.buildconfig' version "6.0.10" apply false
 }
 
 def getRNMinorVersion() {
@@ -70,6 +70,10 @@ includeBuild(new File(["node", "--print", "require.resolve('@react-native/gradle
 
 // Internal use only
 def ubqRootPath = file("../../../..")
+def remoteBuildCache = file("$ubqRootPath/config/gradle/remote-build-cache.settings.gradle")
+if (remoteBuildCache.exists()) {
+    apply from: remoteBuildCache
+}
 def editorDir = file("$ubqRootPath/apps/cesdk_android")
 if (editorDir.exists() && System.getenv("UBQ_ANDROID_USE_ARTIFACTS") != "true") {
     gradle.ext.useMavenLocal = true

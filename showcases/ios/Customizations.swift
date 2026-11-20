@@ -1,6 +1,8 @@
 import IMGLYEditor
 import IMGLYEditorModule
 import IMGLYEngine
+import IMGLYPluginBackgroundRemoval
+import IMGLYPluginVoiceIsolation
 import SwiftUI
 
 /// A typealias for `EditorBuilder.EditorBuilderResult` for convenient usage.
@@ -29,8 +31,29 @@ typealias EditorBuilderResult = EditorBuilder.EditorBuilderResult
       }
     }
 
+    /// Returns an editor with a plugin when the metadata names one.
+    /// - Parameter metadata: The metadata of the plugin entries, for example `["plugin": "backgroundRemoval"]`.
+    /// - Returns: The `EditorBuilder.Builder` of the plugin editor, or `nil` for any other entry.
+    func pluginEditor(metadata: [String: Any]?) -> EditorBuilder.Builder? {
+      switch metadata?["plugin"] as? String {
+      case "backgroundRemoval":
+        EditorBuilder.custom { settings, _, _, result in
+          BackgroundRemovalPhotoEditor(settings: settings, result: result)
+        }
+      case "voiceIsolation":
+        EditorBuilder.custom { settings, _, _, result in
+          VoiceIsolationVideoEditor(settings: settings, result: result)
+        }
+      default:
+        nil
+      }
+    }
+
     IMGLYEditorModuleSwiftAdapter.shared.builderClosure = { preset, metadata in
-      switch preset {
+      if let editor = pluginEditor(metadata: metadata) {
+        return editor
+      }
+      return switch preset {
       case .postcard:
         defaultOrCustomEditor(
           defaultEditor: EditorBuilder.postcard(),
@@ -89,11 +112,17 @@ typealias EditorBuilderResult = EditorBuilder.EditorBuilderResult
 /// An extension containing the custom editor implementations.
 extension Customizations {
   /// Derives `EngineSettings` for a given `EditorSettings`.
+  /// The host is `react-native`, as in the module's own editors, so that a license scoped to React Native validates.
   /// - Parameters:
   ///   - settings: The `EditorSettings` to derive the settings from.
   /// - Returns: The derived `EngineSettings`.
   private static func engineSettings(for settings: EditorSettings) -> EngineSettings {
-    EngineSettings(license: settings.license, userID: settings.userId, baseURL: URL(string: settings.baseUri))
+    EngineSettings(
+      license: settings.license,
+      userID: settings.userId,
+      baseURL: URL(string: settings.baseUri),
+      host: "react-native",
+    )
   }
 
   /// A custom design editor.
@@ -344,6 +373,85 @@ extension Customizations {
             ModalEditorConfiguration(result: result)
           }
       }.navigationViewStyle(.stack)
+    }
+  }
+
+  /// A photo editor with the background removal plugin.
+  private struct BackgroundRemovalPhotoEditor: View {
+    private let settings: EditorSettings
+    private let result: EditorBuilderResult
+
+    init(settings: EditorSettings, result: @escaping EditorBuilderResult) {
+      self.settings = settings
+      self.result = result
+    }
+
+    var body: some View {
+      NavigationStack {
+        Editor(engineSettings(for: settings))
+          .imgly.configuration {
+            PhotoEditorConfiguration { builder in
+              builder.onCreate { engine, _ in
+                if let createScene = try OnCreate.loadFromSettings(settings) {
+                  try await PhotoEditorConfiguration.defaultOnCreate(createScene: createScene)(engine)
+                } else {
+                  try await PhotoEditorConfiguration.defaultOnCreate()(engine)
+                }
+              }
+              builder.onExport { engine, _, _ in
+                do {
+                  let editorResult = try await OnExport.export(engine, .png)
+                  result(.success(editorResult))
+                } catch {
+                  result(.failure(error))
+                }
+              }
+            }
+            ModalEditorConfiguration(result: result)
+            BackgroundRemovalPlugin()
+          }
+      }
+    }
+  }
+
+  /// A video editor with the voice isolation plugin.
+  private struct VoiceIsolationVideoEditor: View {
+    private let settings: EditorSettings
+    private let result: EditorBuilderResult
+
+    init(settings: EditorSettings, result: @escaping EditorBuilderResult) {
+      self.settings = settings
+      self.result = result
+    }
+
+    var body: some View {
+      NavigationStack {
+        Editor(engineSettings(for: settings))
+          .imgly.configuration {
+            VideoEditorConfiguration { builder in
+              builder.onCreate { engine, _ in
+                if let createScene = try OnCreate.loadFromSettings(settings) {
+                  try await VideoEditorConfiguration.defaultOnCreate(createScene: createScene)(engine)
+                } else {
+                  try await VideoEditorConfiguration.defaultOnCreate()(engine)
+                }
+              }
+              builder.onExport { engine, eventHandler, _ in
+                do {
+                  let editorResult = try await OnExport.exportVideo(engine, eventHandler, .mp4)
+                  result(.success(editorResult))
+                } catch {
+                  if error is CancellationError {
+                    return
+                  }
+                  result(.failure(error))
+                }
+              }
+            }
+            ModalEditorConfiguration(result: result)
+            VoiceIsolationPlugin()
+          }
+      }
     }
   }
 

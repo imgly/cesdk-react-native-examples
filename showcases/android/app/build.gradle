@@ -118,6 +118,8 @@ buildConfig {
   buildConfigField String, "UNSPLASH_HOST", System.env.CESDK_AND_UNSPLASH_HOST ?: localProperties.getProperty("unsplash_host") ?: ""
 }
 
+def engineInternalDeploy = Boolean.parseBoolean(System.getenv("UBQ_ANDROID_INTERNAL_DEPLOY") ?: "false")
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -127,6 +129,11 @@ android {
     namespace 'ly.img.editor.reactnative.showcases'
     defaultConfig {
         applicationId 'ly.img.editor.reactnative.showcases'
+        manifestPlaceholders += [
+            imglyEngineInternalDeploy: engineInternalDeploy,
+            imglyEngineStagingLicense: engineInternalDeploy,
+            imglyEngineLogging: engineInternalDeploy,
+        ]
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -213,6 +220,12 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    // The plugins depend on the editor of their own version, so they take the version of the editor module.
+    def editorPackage = new File(["node", "--print", "require.resolve('@imgly/editor-react-native/package.json')"].execute(null, rootDir).text.trim())
+    def editorVersion = new groovy.json.JsonSlurper().parse(editorPackage).version
+    implementation("ly.img:plugin-background-removal-imgly:$editorVersion")
+    implementation("ly.img:plugin-voice-isolation-imgly:$editorVersion")
 
     // Detox
     androidTestImplementation('com.wix:detox:+')

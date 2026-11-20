@@ -1,3 +1,6 @@
+source 'https://github.com/imgly/cesdk-specs.git'
+source 'https://cdn.cocoapods.org/'
+
 require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
 require File.join(File.dirname(`node --print "require.resolve('react-native/package.json')"`), "scripts/react_native_pods")
 
@@ -28,7 +31,8 @@ self.define_singleton_method(use_autolinking_method_symbol) do |*args|
   end
 end
 
-platform :ios, podfile_properties['ios.deploymentTarget'] || '13.4'
+ios_deployment_target = podfile_properties.fetch('ios.deploymentTarget')
+platform :ios, ios_deployment_target
 install! 'cocoapods',
   :deterministic_uuids => false
 
@@ -53,6 +57,18 @@ target 'showcases' do
     pod 'IMGLYDesignEditor', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYDesignEditor.podspec"
     pod 'IMGLYPostcardEditor', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYPostcardEditor.podspec"
     pod 'IMGLYVideoEditor', path: "#{ENV['SOURCE_POD_PATH']}/IMGLYVideoEditor.podspec"
+    pod 'IMGLYPluginBackgroundRemoval', path: "#{ENV['SOURCE_POD_PATH_PLUGINS']}/IMGLYPluginBackgroundRemoval-swift/IMGLYPluginBackgroundRemoval.podspec"
+    pod 'IMGLYPluginBackgroundRemovalCore', path: "#{ENV['SOURCE_POD_PATH_PLUGINS']}/IMGLYPluginBackgroundRemoval-swift/IMGLYPluginBackgroundRemovalCore.podspec"
+    pod 'IMGLYPluginBackgroundRemovalONNX', path: "#{ENV['SOURCE_POD_PATH_PLUGINS']}/IMGLYPluginBackgroundRemoval-swift/IMGLYPluginBackgroundRemovalONNX.podspec"
+    pod 'IMGLYPluginBackgroundRemovalVision', path: "#{ENV['SOURCE_POD_PATH_PLUGINS']}/IMGLYPluginBackgroundRemoval-swift/IMGLYPluginBackgroundRemovalVision.podspec"
+    pod 'IMGLYPluginVoiceIsolation', path: "#{ENV['SOURCE_POD_PATH_PLUGINS']}/IMGLYPluginVoiceIsolation-swift/IMGLYPluginVoiceIsolation.podspec"
+    pod 'IMGLYPluginVoiceIsolationCore', path: "#{ENV['SOURCE_POD_PATH_PLUGINS']}/IMGLYPluginVoiceIsolation-swift/IMGLYPluginVoiceIsolationCore.podspec"
+    pod 'IMGLYPluginVoiceIsolationONNX', path: "#{ENV['SOURCE_POD_PATH_PLUGINS']}/IMGLYPluginVoiceIsolation-swift/IMGLYPluginVoiceIsolationONNX.podspec"
+  else
+    # The plugins pin IMGLYUI exactly, so they take the version of the editor module.
+    editor_version = JSON.parse(File.read(`node --print "require.resolve('@imgly/editor-react-native/package.json')"`.strip))['version']
+    pod 'IMGLYPluginBackgroundRemoval', editor_version
+    pod 'IMGLYPluginVoiceIsolation', editor_version
   end
 
   use_react_native!(
@@ -70,6 +86,16 @@ target 'showcases' do
       :mac_catalyst_enabled => false,
       :ccache_enabled => podfile_properties['apple.ccacheEnabled'] == 'true',
     )
+
+    # Pods can declare a lower minimum than the app, which newer Xcode SDKs reject.
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        deployment_target = config.build_settings['IPHONEOS_DEPLOYMENT_TARGET']
+        if deployment_target.nil? || Gem::Version.new(deployment_target) < Gem::Version.new(ios_deployment_target)
+          config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = ios_deployment_target
+        end
+      end
+    end
 
     # This is necessary for Xcode 14, because it signs resource bundles by default
     # when building for devices.
